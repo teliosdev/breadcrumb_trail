@@ -1,4 +1,4 @@
-RSpec.describe BreadcrumbTrail::ListBuilder do
+RSpec.describe BreadcrumbTrail::HTMLBuilder do
   let(:breadcrumbs) {
     [
       { path: "/", name: "home" },
@@ -6,8 +6,9 @@ RSpec.describe BreadcrumbTrail::ListBuilder do
       { path: "/foo/bar", name: "foo/bar" }
     ].map { |data| BreadcrumbTrail::Breadcrumb.new(data) } }
   let(:context) { double("context") }
+  let(:options) { Hash.new }
 
-  subject { described_class.new(context, breadcrumbs) }
+  subject { described_class.new(context, breadcrumbs, options) }
 
   it "renders a list" do
     expect(subject.call).to eq "<ol>" \
@@ -15,6 +16,19 @@ RSpec.describe BreadcrumbTrail::ListBuilder do
       "<li><a href=\"/foo\">foo</a></li>" \
       "<li><a href=\"/foo/bar\">foo/bar</a></li>" \
       "</ol>"
+  end
+
+  describe "when given options" do
+    let(:options) { { outer: "ul", outer_options: { class: "navigation" } } }
+
+    it "renders a list with options" do
+      expect(subject.call).
+        to eq "<ul class=\"navigation\">" \
+        "<li><a href=\"/\">home</a></li>" \
+        "<li><a href=\"/foo\">foo</a></li>" \
+        "<li><a href=\"/foo/bar\">foo/bar</a></li>" \
+        "</ul>"
+    end
   end
 
   describe "when given breadcrumbs with html data" do

@@ -26,19 +26,34 @@ module BreadcrumbTrail
     end
   end
 
-  class ListBuilder < Builder
+  class HTMLBuilder < Builder
+
+    include ActionView::Helpers
 
     def call
+      outer_tag = @options.fetch(:outer, "ol")
+      inner_tag = @options.fetch(:inner, "li")
+      outer = tag(outer_tag,
+                  @options.fetch(:outer_options, nil),
+                  true)
+      inner = tag(inner_tag,
+                  @options.fetch(:inner_options, nil),
+                  true)
+
       buffer = ActiveSupport::SafeBuffer.new
-      buffer.safe_concat("<ol>")
+      buffer << outer
+
       @breadcrumbs.each do |breadcrumb|
-        buffer.safe_concat("<li><a href=\"")
-        buffer << breadcrumb.compute_path(@context)
-        buffer.safe_concat("\">")
-        buffer << breadcrumb.compute_name(@context)
-        buffer.safe_concat("</a></li>")
+        buffer << inner
+        buffer << link_to(breadcrumb.compute_name(@context),
+                          breadcrumb.compute_path(@context),
+                          breadcrumb.options)
+        buffer << "</#{inner_tag}>".html_safe
       end
-      buffer.safe_concat("</ol>")
+
+      buffer.safe_concat "</#{outer_tag}>".html_safe
+
     end
+
   end
 end

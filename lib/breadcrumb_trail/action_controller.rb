@@ -34,7 +34,7 @@ module BreadcrumbTrail
           if block_given
             BlockBuilder
           else
-            ListBuilder
+            HTMLBuilder
           end
         end
 
