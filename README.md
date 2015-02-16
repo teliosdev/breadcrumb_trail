@@ -1,4 +1,5 @@
 # Breadcrumb Trail
+[![Code Climate](https://codeclimate.com/github/medcat/breadcrumb_trail/badges/gpa.svg)](https://codeclimate.com/github/medcat/breadcrumb_trail) [![Build Status](https://travis-ci.org/medcat/breadcrumb_trail.svg)](https://travis-ci.org/medcat/breadcrumb_trail)
 
 Helps you create a breadcrumb system for your Rails application.
 Better than any other library, guarenteed<sup>*</sup>.

@@ -1,3 +1,5 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 path = File.expand_path("../", __FILE__)
