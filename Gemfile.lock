@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    breadcrumb_trail (0.0.1)
+    breadcrumb_trail (0.1.0)
       rails (>= 3.0, < 5)
 
 GEM
