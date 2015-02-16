@@ -35,24 +35,24 @@ module BreadcrumbTrail
       inner_tag = @options.fetch(:inner, "li")
       outer = tag(outer_tag,
                   @options.fetch(:outer_options, nil),
-                  true)
+                  true) if outer_tag
       inner = tag(inner_tag,
                   @options.fetch(:inner_options, nil),
-                  true)
+                  true) if inner_tag
 
       buffer = ActiveSupport::SafeBuffer.new
-      buffer << outer
+      buffer.safe_concat(outer) if outer_tag
 
       @breadcrumbs.each do |breadcrumb|
-        buffer << inner
+        buffer.safe_concat(inner) if inner_tag
         buffer << link_to(breadcrumb.compute_name(@context),
                           breadcrumb.compute_path(@context),
                           breadcrumb.options)
-        buffer << "</#{inner_tag}>".html_safe
+        buffer.safe_concat("</#{inner_tag}>") if inner_tag
       end
 
-      buffer.safe_concat "</#{outer_tag}>".html_safe
-
+      buffer.safe_concat("</#{outer_tag}>") if outer_tag
+      buffer
     end
 
   end

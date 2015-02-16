@@ -31,6 +31,17 @@ RSpec.describe BreadcrumbTrail::HTMLBuilder do
     end
   end
 
+  describe "when given nil tags" do
+    let(:options) { { outer: nil, inner: nil } }
+
+    it "renders only links" do
+      expect(subject.call).to eq \
+        "<a href=\"/\">home</a>" \
+        "<a href=\"/foo\">foo</a>" \
+        "<a href=\"/foo/bar\">foo/bar</a>"
+    end
+  end
+
   describe "when given breadcrumbs with html data" do
     let(:breadcrumbs) {
       [
