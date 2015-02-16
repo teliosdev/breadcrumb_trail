@@ -111,15 +111,9 @@ You don't have to use one of these.  You can use your own builder.
 However, if you're using a builder because the default builders don't
 provide a feature you like, open an issue!
 
-Your builder only needs to implement two methods: `#initialize`, and
-`#call`.  This is the signature for each:
-
-    initialize(ActionView::Base, Array[Breadcrumbs], Hash, &Proc)
-
-    call()
-
-And that's it!  Then, you pass the builder to `#render_breadcrumbs`
-with the `builder` option:
+Your builder only needs to subclass `BreadcrumbTrail::Builder` and
+define the method `#call`, and that's it!  Then, you pass the builder
+to `#render_breadcrumbs` with the `builder` option:
 
 ```
 <!-- ... -->
