@@ -42,21 +42,21 @@ module BreadcrumbTrail
     # path.  This is used, for example, in a builder that exposes a
     # breadcrumb to application code.
     #
-    # @see #compute_path
-    # @see #compute_name
+    # @see #computed_path
+    # @see #computed_name
     # @param context [ActionView::Base] The context to compute the
     #   elements under.
     # @return [Breadcrumb]
     def computed(context)
-      self.class.new(name: compute_name(context),
-                     path: compute_path(context),
+      self.class.new(name: computed_name(context),
+                     path: computed_path(context),
                      **@options)
     end
 
     # Computes the path of the breadcrumb under the given context.
     #
     # @return [String, Hash]
-    def compute_path(context)
+    def computed_path(context)
       @_path ||= case @path
       when String, Hash
         @path
@@ -74,7 +74,7 @@ module BreadcrumbTrail
     # Computes the name of the breadcrumb under the given context.
     #
     # @return [String]
-    def compute_name(context)
+    def computed_name(context)
       @_name ||= case @name
       when String
         @name
@@ -83,7 +83,7 @@ module BreadcrumbTrail
       when Proc
         context.instance_exec(&@name)
       when nil
-        compute_path(context)
+        computed_path(context)
       else
         raise ArgumentError,
           "Expected one of String, Symbol, or Proc, " \

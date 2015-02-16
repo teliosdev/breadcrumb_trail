@@ -84,8 +84,8 @@ module BreadcrumbTrail
 
       @breadcrumbs.each do |breadcrumb|
         buffer.safe_concat(inner) if inner_tag
-        buffer << link_to(breadcrumb.compute_name(@context),
-                          breadcrumb.compute_path(@context),
+        buffer << link_to(breadcrumb.computed_name(@context),
+                          breadcrumb.computed_path(@context),
                           breadcrumb.options)
         buffer.safe_concat("</#{inner_tag}>") if inner_tag
       end
