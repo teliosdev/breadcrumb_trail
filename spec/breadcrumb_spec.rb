@@ -27,7 +27,7 @@ RSpec.describe BreadcrumbTrail::Breadcrumb do
     let(:actual_path) { "/" }
 
     it "returns the called name" do
-      expect(context).to receive(:some_name).once.and_return(actual_name)
+      expect(I18n).to receive(:translate).with(:some_name).and_return(actual_name)
       expect(subject.computed_name(context)).to be actual_name
     end
 

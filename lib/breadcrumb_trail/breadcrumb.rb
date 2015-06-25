@@ -79,7 +79,7 @@ module BreadcrumbTrail
       when String
         @name
       when Symbol
-        context.public_send(@name) # todo
+        I18n.translate(@name)
       when Proc
         context.instance_exec(&@name)
       when nil
