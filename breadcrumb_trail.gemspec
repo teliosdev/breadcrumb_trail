@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard"
   spec.add_development_dependency "codeclimate-test-reporter"
 
-  # I don't know what 5 will be like...
-  spec.add_dependency "rails", ">= 3.0", "< 5"
+  # I don't know what 6 will be like...
+  spec.add_dependency "rails", ">= 3.0", "< 5.1"
 
 end
